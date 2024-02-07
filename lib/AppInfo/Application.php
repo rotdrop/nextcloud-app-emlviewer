@@ -4,6 +4,7 @@ namespace OCA\EmlViewer\AppInfo;
 
 use Exception;
 use OCP\AppFramework\App;
+use OCP\EventDispatcher\IEventDispatcher;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
@@ -70,13 +71,13 @@ class Application extends App implements IBootstrap
 
     protected function registerScripts()
     {
-        $eventDispatcher = \OC::$server->getEventDispatcher();
-        $eventDispatcher->addListener('OCA\Files::loadAdditionalScripts', function () {
-            script(self::APP_ID, 'script');
-            style(self::APP_ID, 'style');
+        $eventDispatcher = $this->getContainer()->query(IEventDispatcher::class);
+        $eventDispatcher->addListener(\OCA\Files\Event\LoadAdditionalScriptsEvent::class, function () {
+            Util::addInitScript(self::APP_ID, 'script');
+            Util::addStyle(self::APP_ID, 'style');
         });
-        $eventDispatcher->addListener('OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent', function () {
-            Util::addScript(self::APP_ID, 'script');
+        $eventDispatcher->addListener(\OCA\Files_Sharing\Event\BeforeTemplateRenderedEvent::class, function () {
+            Util::addInitScript(self::APP_ID, 'script');
             Util::addStyle(self::APP_ID, 'style');
         });
     }

@@ -1,3 +1,6 @@
+## 1.1.0 – 2023-02-07
+Upgraded version support to NC28
+
 ## 1.0.9 – 2023-02-07
 Upgraded dependencies.
 Fixed composer and PSR version included in vendor folder.

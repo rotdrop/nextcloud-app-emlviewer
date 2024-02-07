@@ -10,12 +10,13 @@
      * @namespace OCA.FilesEmlViewer.PreviewPlugin
      */
     OCA.FilesEmlViewer.PreviewEml = {
-
+        
         _baseUrl: '/apps/emlviewer',
         /**
          * @param fileList
          */
         attach: function (fileList) {
+            console.log('one');
             this._extendFileActions(fileList.fileActions);
         },
 
@@ -77,6 +78,7 @@
          * @private
          */
         _extendFileActions: function (fileActions) {
+            console.log('WOW');
             var self = this;
             if (typeof isSecureViewerAvailable !== "undefined" && isSecureViewerAvailable()) {
                 return;
